@@ -5,12 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 import Profile from "@components/Profile";
 import type Post from "../../../types/Post";
-import type Params from '../../../types/Params';
-
-// Define the type for the handler context with params as a Promise
-interface Context {
-  params: Promise<Params>
-}
+import type Context from '../../../types/Context';
 
 
 const UserProfile = ({ params }: Context) => {

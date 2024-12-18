@@ -1,7 +1,8 @@
 import '@styles/global.css';
 import Nav from '@components/Nav';
-import type { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import Provider from '../components/Provider';
+import Loading from '@components/Loading';
 
 export const metadata = {
   title: "Promptopia",
@@ -23,7 +24,11 @@ function RootLayout({ children }: RootLayoutProps) {
 
           <main className='app'>
             <Nav />
-            {children}
+
+            {/* Suspense for async data fetching */}
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
           </main>
         </Provider>
       </body>

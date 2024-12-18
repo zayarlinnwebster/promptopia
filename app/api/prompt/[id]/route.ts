@@ -1,12 +1,14 @@
 import { connectToDB } from '@utils/database'
 import Prompt from '@models/prompt'
-import type Params from '../../../../types/Params'
+import type Context from '../../../../types/Context'
 
-export const GET = async (req: Request, { params }: { params: Params }) => {
+export const GET = async (req: Request, { params }: Context) => {
+  const resolvedParams = await params
+
   try {
     await connectToDB()
 
-    const prompt = await Prompt.findById(params.id).populate('creator')
+    const prompt = await Prompt.findById(resolvedParams.id).populate('creator')
 
     if (!prompt) return new Response('Prompt not found!', { status: 404 })
 
@@ -17,12 +19,14 @@ export const GET = async (req: Request, { params }: { params: Params }) => {
   }
 }
 
-export const PATCH = async (req: Request, { params }: { params: Params }) => {
+export const PATCH = async (req: Request, { params }: Context) => {
+  const resolvedParams = await params
   const { prompt, tag } = await req.json()
+
   try {
     await connectToDB()
 
-    const existingPrompt = await Prompt.findById(params.id)
+    const existingPrompt = await Prompt.findById(resolvedParams.id)
 
     if (!existingPrompt)
       return new Response('Prompt not found!', { status: 404 })
@@ -39,11 +43,13 @@ export const PATCH = async (req: Request, { params }: { params: Params }) => {
   }
 }
 
-export const DELETE = async (req: Request, { params }: { params: Params }) => {
+export const DELETE = async (req: Request, { params }: Context) => {
+  const resolvedParams = await params
+
   try {
     await connectToDB()
 
-    await Prompt.findByIdAndDelete(params.id)
+    await Prompt.findByIdAndDelete(resolvedParams.id)
 
     return new Response('Prompt deleted successfully.', { status: 200 })
   } catch (error) {
