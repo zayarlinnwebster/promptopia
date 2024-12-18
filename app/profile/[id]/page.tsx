@@ -21,7 +21,7 @@ const UserProfile = ({ params }: Context) => {
       const resolved = await resolvedParams; // Await resolved params
       if (!resolved?.id) return; // Skip fetching if `id` is not available
 
-      const response = await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/users/${resolved.id}/posts`);
+      const response = await fetch(`/api/users/${resolved.id}/posts`);
       const data = await response.json();
 
       setUserPosts(data);

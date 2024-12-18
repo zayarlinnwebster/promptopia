@@ -15,7 +15,7 @@ function MyProfile() {
   useEffect(() => {
     const fetchPosts = async () => {
       if (!session?.user.id) return; // Ensure that session and user.id are available
-      const response = await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/users/${session.user.id}/posts`);
+      const response = await fetch(`/api/users/${session.user.id}/posts`);
       const data = await response.json();
 
       setPosts(data);
@@ -33,7 +33,7 @@ function MyProfile() {
 
     if (hasConfirmed) {
       try {
-        await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/prompt/${post?._id?.toString()}`, {
+        await fetch(`/api/prompt/${post?._id?.toString()}`, {
           method: 'DELETE',
         });
 

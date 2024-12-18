@@ -47,7 +47,7 @@ function Feed() {
   };
 
   const fetchPosts = async () => {
-    const response = await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/prompt`);
+    const response = await fetch(`/api/prompt`);
     const data = await response.json();
 
     setAllPosts(data);
